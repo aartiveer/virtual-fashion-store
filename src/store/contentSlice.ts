@@ -1,13 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-export interface ContentItem {
-  id: string;
-  photo: string;
-  user: string;
-  title: string;
-  pricingOption: number; // 0 = Paid, 1 = Free, 2 = View Only
-  price?: number;
-}
+import { ContentItem } from '../api/fetchContents';
 
 interface ContentState {
   items: ContentItem[];
@@ -52,34 +44,19 @@ export const contentSlice = createSlice({
     },
     applyFilters: (state) => {
       let filtered = [...state.items];
-      // Keyword filter
-      if (state.keyword) {
+      if (state.keyword.trim() !== '') {
         filtered = filtered.filter(
           (item) =>
-            item.user.toLowerCase().includes(state.keyword.toLowerCase()) ||
+            item.creator.toLowerCase().includes(state.keyword.toLowerCase()) ||
             item.title.toLowerCase().includes(state.keyword.toLowerCase())
         );
       }
-      // Pricing filter
-      if (state.selectedPricing.length) {
+      if (state.selectedPricing.length > 0) {
         filtered = filtered.filter((item) =>
           state.selectedPricing.includes(item.pricingOption)
         );
       }
-      // Price range filter (if Paid is selected)
-      if (
-        state.selectedPricing.includes(0) &&
-        state.priceRange[0] !== 0 &&
-        state.priceRange[1] !== 999
-      ) {
-        filtered = filtered.filter(
-          (item) =>
-            item.price &&
-            item.price >= state.priceRange[0] &&
-            item.price <= state.priceRange[1]
-        );
-      }
-      state.filteredItems = filtered;
+      state.filteredItems = filtered;  // always update with all when no filters
     },
   },
 });

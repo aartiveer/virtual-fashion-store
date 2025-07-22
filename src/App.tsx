@@ -9,8 +9,7 @@ import {
   applyFilters,
 } from './store/contentSlice';
 import styled from 'styled-components';
-import { ContentItem } from './api/fetchContents';
-import { fetchContents } from './api/fetchContents';
+import { ContentItem, fetchContents } from './api/fetchContents';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { GlobalStyle } from './GlobalStyle';
 
@@ -214,7 +213,6 @@ const App = () => {
         <RequiredBtn>REQUIRED FEATURE</RequiredBtn>
       </Header>
       <Container>
-        {/* Filter Section */}
         <Section>
           <SectionTitle>
             <span style={{fontSize: '1.2em'}}>🟢</span> Contents Filter
@@ -252,8 +250,6 @@ const App = () => {
             </ResetButton>
           </Bar>
         </Section>
-
-        {/* Search Section */}
         <Section>
           <Bar style={{ justifyContent: 'flex-end', display: 'flex', background: 'none', border: 'none', padding: 0, marginBottom: 0 }}>
             <SearchBox>
@@ -267,8 +263,6 @@ const App = () => {
             </SearchBox>
           </Bar>
         </Section>
-
-        {/* Contents List */}
         <Section>
           <SectionTitle>
             <span style={{fontSize: '1.2em'}}>🟢</span> Contents List
@@ -284,11 +278,14 @@ const App = () => {
               {filteredItems.map((item: ContentItem) => (
                 <Card key={item.id}>
                   <CardImageWrapper>
-                    <CardImage src={item.photo || 'https://via.placeholder.com/300x380/232427/eee?text=No+Image'} alt={item.title}/>
+                    <CardImage
+                      src={item.imagePath || 'https://via.placeholder.com/300x380/232427/eee?text=No+Image'}
+                      alt={item.title}
+                    />
                   </CardImageWrapper>
                   <CardTitle>{item.title}</CardTitle>
-                  <CardUser>{item.user}</CardUser>
-                  {item.pricingOption === 0 && <CardPrice color="#fff">${item.price?.toFixed(2) ?? "-"}</CardPrice>}
+                  <CardUser>by {item.creator}</CardUser>
+                  {item.pricingOption === 0 && <CardPrice color="#fff">${item.price?.toFixed(2) ?? '—'}</CardPrice>}
                   {item.pricingOption === 1 && <CardPrice color="#29db95">FREE</CardPrice>}
                   {item.pricingOption === 2 && <CardPrice color="#f7c325">View Only</CardPrice>}
                 </Card>
