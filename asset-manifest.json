@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/frontend-assessment/static/css/main.e6c13ad2.css",
+    "main.js": "/frontend-assessment/static/js/main.19899a46.js",
+    "static/media/logo.png": "/frontend-assessment/static/media/logo.297e552b5e1b01e37c50.png",
+    "index.html": "/frontend-assessment/index.html",
+    "main.e6c13ad2.css.map": "/frontend-assessment/static/css/main.e6c13ad2.css.map",
+    "main.19899a46.js.map": "/frontend-assessment/static/js/main.19899a46.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.19899a46.js"
+  ]
+}
